@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1171" systemVersion="11E53" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Comment" representedClassName="Comment" syncable="YES">
+        <attribute name="categoria" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codigo" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subCategoria" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="notificacion" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Notificaciones" inverseName="comentarios" inverseEntity="Notificaciones" syncable="YES"/>
+    </entity>
+    <entity name="Drug" representedClassName="Drug" syncable="YES">
+        <attribute name="activIngred" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="appINo" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="dosage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="drugName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="drugPK" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="drugScheduleType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="form" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="packageSize" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="pillsLeft" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
+        <attribute name="refillAlarm" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="triggerUnitsLeft" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="drugScheduleCustom" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DrugScheduleCustom" inverseName="drug" inverseEntity="DrugScheduleCustom" syncable="YES"/>
+        <relationship name="drugScheduleInterval" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DrugScheduleInterval" inverseName="drug" inverseEntity="DrugScheduleInterval" syncable="YES"/>
+        <relationship name="drugScheduleTime" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DrugScheduleTime" inverseName="drug" inverseEntity="DrugScheduleTime" syncable="YES"/>
+        <relationship name="notificacion" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notificaciones" inverseName="drug" inverseEntity="Notificaciones" syncable="YES"/>
+    </entity>
+    <entity name="DrugScheduleCustom" representedClassName="DrugScheduleCustom" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="noDays" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="drug" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Drug" inverseName="drugScheduleCustom" inverseEntity="Drug" syncable="YES"/>
+        <relationship name="drugScheduleCustomDay" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DrugScheduleCustomDay" inverseName="drugScheduleCustom" inverseEntity="DrugScheduleCustomDay" syncable="YES"/>
+    </entity>
+    <entity name="DrugScheduleCustomDay" representedClassName="DrugScheduleCustomDay" syncable="YES">
+        <attribute name="dayNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="noDay" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="drugScheduleCustom" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DrugScheduleCustom" inverseName="drugScheduleCustomDay" inverseEntity="DrugScheduleCustom" syncable="YES"/>
+        <relationship name="drugScheduleCustomTake" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DrugScheduleCustomTake" inverseName="drugScheduleCustomDay" inverseEntity="DrugScheduleCustomTake" syncable="YES"/>
+    </entity>
+    <entity name="DrugScheduleCustomTake" representedClassName="DrugScheduleCustomTake" syncable="YES">
+        <attribute name="dose" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="takeNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="drugScheduleCustomDay" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DrugScheduleCustomDay" inverseName="drugScheduleCustomTake" inverseEntity="DrugScheduleCustomDay" syncable="YES"/>
+    </entity>
+    <entity name="DrugScheduleInterval" representedClassName="DrugScheduleInterval" syncable="YES">
+        <attribute name="bedTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dose" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstIntake" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="interuption" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="interval" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="drug" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Drug" inverseName="drugScheduleInterval" inverseEntity="Drug" syncable="YES"/>
+    </entity>
+    <entity name="DrugScheduleTime" representedClassName="DrugScheduleTime" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="noTakes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="drug" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Drug" inverseName="drugScheduleTime" inverseEntity="Drug" syncable="YES"/>
+        <relationship name="drugScheduleTimeTake" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DrugScheduleTimeTake" inverseName="drugScheduleTimeTake" inverseEntity="DrugScheduleTimeTake" syncable="YES"/>
+    </entity>
+    <entity name="DrugScheduleTimeTake" representedClassName="DrugScheduleTimeTake" syncable="YES">
+        <attribute name="dose" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="takeNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="drugScheduleTimeTake" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="DrugScheduleTime" inverseName="drugScheduleTimeTake" inverseEntity="DrugScheduleTime" syncable="YES"/>
+    </entity>
+    <entity name="Notificaciones" representedClassName="Notificaciones" syncable="YES">
+        <attribute name="dosis" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="estado" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="fechaHora" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="identificador" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="comentarios" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="notificacion" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="drug" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Drug" inverseName="notificacion" inverseEntity="Drug" syncable="YES"/>
+        <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="notificacion" inverseEntity="Test" syncable="YES"/>
+    </entity>
+    <entity name="Test" representedClassName="Test" syncable="YES">
+        <attribute name="addedByUser" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="default1" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="default2" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="line11" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="line12" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="line13" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="line21" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="line22" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="line23" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="range1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="range2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="step1" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="step2" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="testID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="testName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="testScheduleType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="unit1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unit2" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="notificacion" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notificaciones" inverseName="test" inverseEntity="Notificaciones" syncable="YES"/>
+        <relationship name="testScheduleCustom" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TestScheduleCustom" inverseName="test" inverseEntity="TestScheduleCustom" syncable="YES"/>
+        <relationship name="testScheduleInterval" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TestScheduleInterval" inverseName="test" inverseEntity="TestScheduleInterval" syncable="YES"/>
+        <relationship name="testScheduleTimeTake" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TestScheduleTime" inverseName="test" inverseEntity="TestScheduleTime" syncable="YES"/>
+    </entity>
+    <entity name="TestScheduleCustom" representedClassName="TestScheduleCustom" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="noMeasures" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="testScheduleCustom" inverseEntity="Test" syncable="YES"/>
+        <relationship name="testScheduleCustomDay" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestScheduleCustomDay" inverseName="testScheduleCustom" inverseEntity="TestScheduleCustomDay" syncable="YES"/>
+    </entity>
+    <entity name="TestScheduleCustomDay" representedClassName="TestScheduleCustomDay" syncable="YES">
+        <attribute name="dayNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="noDays" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="testScheduleCustom" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TestScheduleCustom" inverseName="testScheduleCustomDay" inverseEntity="TestScheduleCustom" syncable="YES"/>
+        <relationship name="testScheduleCustomMeasure" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestScheduleCustomMeasure" inverseName="testScheduleCustomDay" inverseEntity="TestScheduleCustomMeasure" syncable="YES"/>
+    </entity>
+    <entity name="TestScheduleCustomMeasure" representedClassName="TestScheduleCustomMeasure" syncable="YES">
+        <attribute name="measureNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="testScheduleCustomDay" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TestScheduleCustomDay" inverseName="testScheduleCustomMeasure" inverseEntity="TestScheduleCustomDay" syncable="YES"/>
+    </entity>
+    <entity name="TestScheduleInterval" representedClassName="TestScheduleInterval" syncable="YES">
+        <attribute name="bedTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstMeasure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="interuption" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="interval" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="measureNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="testScheduleInterval" inverseEntity="Test" syncable="YES"/>
+    </entity>
+    <entity name="TestScheduleTime" representedClassName="TestScheduleTime" syncable="YES">
+        <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="noMeasures" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="test" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Test" inverseName="testScheduleTimeTake" inverseEntity="Test" syncable="YES"/>
+        <relationship name="testScheduleTimeMeasure" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TestScheduleTimeMeasure" inverseName="testScheduleTime" inverseEntity="TestScheduleTimeMeasure" syncable="YES"/>
+    </entity>
+    <entity name="TestScheduleTimeMeasure" representedClassName="TestScheduleTimeMeasure" syncable="YES">
+        <attribute name="measureNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="testScheduleTime" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="TestScheduleTime" inverseName="testScheduleTimeMeasure" inverseEntity="TestScheduleTime" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Comment" positionX="-288" positionY="-324" width="128" height="120"/>
+        <element name="Drug" positionX="16" positionY="51" width="128" height="270"/>
+        <element name="DrugScheduleCustom" positionX="-9" positionY="345" width="153" height="120"/>
+        <element name="DrugScheduleCustomDay" positionX="-0" positionY="543" width="162" height="105"/>
+        <element name="DrugScheduleCustomTake" positionX="252" positionY="525" width="182" height="105"/>
+        <element name="DrugScheduleInterval" positionX="277" positionY="54" width="128" height="165"/>
+        <element name="DrugScheduleTime" positionX="277" positionY="294" width="128" height="120"/>
+        <element name="DrugScheduleTimeTake" positionX="493" positionY="300" width="182" height="105"/>
+        <element name="Notificaciones" positionX="-513" positionY="-243" width="128" height="135"/>
+        <element name="Test" positionX="-587" positionY="-57" width="128" height="390"/>
+        <element name="TestScheduleCustom" positionX="-767" positionY="144" width="128" height="120"/>
+        <element name="TestScheduleCustomDay" positionX="-855" positionY="414" width="189" height="105"/>
+        <element name="TestScheduleCustomMeasure" positionX="-1035" positionY="153" width="207" height="90"/>
+        <element name="TestScheduleInterval" positionX="-857" positionY="540" width="128" height="163"/>
+        <element name="TestScheduleTime" positionX="-335" positionY="348" width="128" height="118"/>
+        <element name="TestScheduleTimeMeasure" positionX="-369" positionY="567" width="128" height="90"/>
+    </elements>
+</model>
